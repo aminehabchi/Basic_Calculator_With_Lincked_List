@@ -1,3 +1,13 @@
+package main
+
+import (
+	"fmt"
+	"strconv"
+)
+
+func main() {
+}
+
 func calculate(s string) int {
 	ss := ""
 	for i := 0; i < len(s); i++ {
@@ -36,7 +46,7 @@ func calcule(s string) int {
 			}
 		}
 	}
-       b = a
+	b = a
 	for b.Next != nil {
 		if b.Next.Opr == "/" {
 			b.Num = b.Num / b.Next.Next.Num
@@ -54,7 +64,7 @@ func calcule(s string) int {
 			b = b.Next
 		}
 	}
-    b = a
+	b = a
 	for b.Next != nil {
 		if b.Next.Opr == "-" {
 			b.Num = b.Num - b.Next.Next.Num
@@ -79,8 +89,8 @@ func calcule(s string) int {
 		}
 	}
 
-    /////
-//print to see
+	/////
+	//print to see
 	b = a
 	for b != nil {
 		fmt.Print(b.Opr, " ")
@@ -89,6 +99,5 @@ func calcule(s string) int {
 	}
 	/////
 
-	
 	return a.Num
 }
