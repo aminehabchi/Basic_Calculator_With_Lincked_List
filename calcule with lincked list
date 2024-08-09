@@ -80,6 +80,7 @@ func calcule(s string) int {
 	}
 
     /////
+//print to see
 	b = a
 	for b != nil {
 		fmt.Print(b.Opr, " ")
