@@ -1,25 +1,9 @@
-package main
-
-import (
-	"fmt"
-	"strconv"
-)
-
-func main() {
-}
-
 func calculate(s string) int {
-	ss := ""
-	for i := 0; i < len(s); i++ {
-		if s[i] != ' ' {
-			ss = ss + string(s[i])
-		}
-	}
-	a, e := strconv.Atoi(ss)
+	a, e := strconv.Atoi(s)
 	if e == nil {
 		return a
 	}
-	a = calcule(ss)
+	a = calcule(s)
 	return a
 }
 
@@ -33,6 +17,9 @@ func calcule(s string) int {
 	a := &Node{}
 	b := a
 	for i := 0; i < len(s); i++ {
+        if s[i]==' '{
+            continue
+        }
 		if i == 0 {
 			b.Num = int(s[i] - 48)
 		} else {
@@ -46,6 +33,9 @@ func calcule(s string) int {
 			}
 		}
 	}
+    
+    
+
 	b = a
 	for b.Next != nil {
 		if b.Next.Opr == "/" {
@@ -64,6 +54,14 @@ func calcule(s string) int {
 			b = b.Next
 		}
 	}
+
+    b = a
+	for b != nil {
+		fmt.Print(b.Opr, " ")
+		fmt.Println(b.Num)
+		b = b.Next
+	}
+
 	b = a
 	for b.Next != nil {
 		if b.Next.Opr == "-" {
@@ -72,32 +70,15 @@ func calcule(s string) int {
 			if b == nil {
 				break
 			}
-		} else {
-			b = b.Next
-		}
-	}
-	b = a
-	for b.Next != nil {
-		if b.Next.Opr == "+" {
+		} else if b.Next.Opr == "+" {
 			b.Num = b.Num + b.Next.Next.Num
 			b.Next = b.Next.Next.Next
 			if b == nil {
 				break
 			}
-		} else {
+		}else {
 			b = b.Next
 		}
 	}
-
-	/////
-	//print to see
-	b = a
-	for b != nil {
-		fmt.Print(b.Opr, " ")
-		fmt.Println(b.Num)
-		b = b.Next
-	}
-	/////
-
 	return a.Num
 }
