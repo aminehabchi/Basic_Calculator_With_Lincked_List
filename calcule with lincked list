@@ -1,3 +1,17 @@
+func calculate(s string) int {
+	ss := ""
+	for i := 0; i < len(s); i++ {
+		if s[i] != ' ' {
+			ss = ss + string(s[i])
+		}
+	}
+	a, e := strconv.Atoi(ss)
+	if e == nil {
+		return a
+	}
+	a = calcule(ss)
+	return a
+}
 
 type Node struct {
 	Num  int
@@ -22,18 +36,15 @@ func calcule(s string) int {
 			}
 		}
 	}
-	b = a
-	for b != nil {
-		fmt.Print(b.Opr, " ")
-		fmt.Println(b.Num)
-		b = b.Next
-	}
-
-	/////
-
-	b = a
+       b = a
 	for b.Next != nil {
-		if b.Next.Opr == "*" {
+		if b.Next.Opr == "/" {
+			b.Num = b.Num / b.Next.Next.Num
+			b.Next = b.Next.Next.Next
+			if b == nil {
+				break
+			}
+		} else if b.Next.Opr == "*" {
 			b.Num = b.Num * b.Next.Next.Num
 			b.Next = b.Next.Next.Next
 			if b == nil {
@@ -45,8 +56,8 @@ func calcule(s string) int {
 	}
     b = a
 	for b.Next != nil {
-		if b.Next.Opr == "/" {
-			b.Num = b.Num / b.Next.Next.Num
+		if b.Next.Opr == "-" {
+			b.Num = b.Num - b.Next.Next.Num
 			b.Next = b.Next.Next.Next
 			if b == nil {
 				break
@@ -67,17 +78,16 @@ func calcule(s string) int {
 			b = b.Next
 		}
 	}
+
+    /////
 	b = a
-	for b.Next != nil {
-		if b.Next.Opr == "-" {
-			b.Num = b.Num - b.Next.Next.Num
-			b.Next = b.Next.Next.Next
-			if b == nil {
-				break
-			}
-		} else {
-			b = b.Next
-		}
+	for b != nil {
+		fmt.Print(b.Opr, " ")
+		fmt.Println(b.Num)
+		b = b.Next
 	}
+	/////
+
+	
 	return a.Num
 }
