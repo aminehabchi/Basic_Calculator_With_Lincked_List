@@ -1,6 +1,4 @@
 
-
-
 type Node struct {
 	Num  int
 	Opr  string
@@ -15,22 +13,42 @@ func calcule(s string) int {
 			b.Num = int(s[i] - 48)
 		} else {
 			if s[i] >= '0' && s[i] <= '9' {
-				b.Next = &Node{Num: int(s[i] - 48)}
-				b = b.Next
+				b.Num = b.Num*10 + int(s[i]-48)
 			} else {
-
 				b.Next = &Node{Opr: string(s[i])}
+				b = b.Next
+				b.Next = &Node{}
 				b = b.Next
 			}
 		}
 	}
+	b = a
+	for b != nil {
+		fmt.Print(b.Opr, " ")
+		fmt.Println(b.Num)
+		b = b.Next
+	}
+
+	/////
 
 	b = a
 	for b.Next != nil {
 		if b.Next.Opr == "*" {
 			b.Num = b.Num * b.Next.Next.Num
 			b.Next = b.Next.Next.Next
-			if b==nil{
+			if b == nil {
+				break
+			}
+		} else {
+			b = b.Next
+		}
+	}
+    b = a
+	for b.Next != nil {
+		if b.Next.Opr == "/" {
+			b.Num = b.Num / b.Next.Next.Num
+			b.Next = b.Next.Next.Next
+			if b == nil {
 				break
 			}
 		} else {
@@ -42,7 +60,19 @@ func calcule(s string) int {
 		if b.Next.Opr == "+" {
 			b.Num = b.Num + b.Next.Next.Num
 			b.Next = b.Next.Next.Next
-			if b==nil{
+			if b == nil {
+				break
+			}
+		} else {
+			b = b.Next
+		}
+	}
+	b = a
+	for b.Next != nil {
+		if b.Next.Opr == "-" {
+			b.Num = b.Num - b.Next.Next.Num
+			b.Next = b.Next.Next.Next
+			if b == nil {
 				break
 			}
 		} else {
